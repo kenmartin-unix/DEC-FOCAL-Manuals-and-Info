@@ -1,0 +1,103 @@
+
+PiDP-8/I Software Artifact [f5cb6120e5]
+Log In
+☰Timeline Files Branches Tags Forum Wishes Bugs Wiki
+Download Hex Parsed Line Numbers
+Artifact f5cb6120e5f902d49821e3fab04b295f5ae0707f:
+
+Wiki page [Running FOCAL,1969] by tangent on 2019-08-16 10:53:09.
+
+    D 2019-08-16T10:53:09.799
+    L Running\sFOCAL,1969
+    N text/x-markdown
+    P 60654cf50ba89d59b29c7845781d17b27cdf3a45
+    U tangent
+    W 6148
+    The PiDP-8/I project defaults to [U/W FOCAL][uwf], but it has [an option][opt] that lets you either add FOCAL,1969 to this or switch to it by disabling U/W FOCAL entirely:
+
+        $ ./configure --enable-os8-focal69 --disable-os8-uwfocal
+
+    Once that software is built and installed, you might then wonder, "How do I get started?" This document is our answer to that question.
+
+
+    # Running Programs with OS/8
+
+    OS/8 does not handle commands the same way as Unix, MS-DOS, or the Windows command shells `cmd.exe` and PowerShell. The first word in an OS/8 command is handled either by the OS/8 Keyboard Monitor or by the optional Concise Command Language (CCL) feature of OS/8. (See pages 1-35 and 1-52 in the [1974 edition of the OS/8 Handbook][hb], respectively, for more information on these OS/8 features.)
+
+    In Unix terms, it is as if OS/8 has nothing but [shell built-in commands][sbi]. There is no command `PATH` in OS/8, not even a hard-coded one.
+
+    If you want to run external executables in OS/8 (e.g. `*.BN`, `*.LD`, `*.SV`, etc.) you must give a Keyboard Monitor or CCL command to load them, or you must run a command that can in turn load them.
+
+    CCL adds some aliases for running binaries that makes it work more like Unix or DOS (e.g. "TECO"), but don't get confused about what's going on here: these are just one-off helpers, not generic support of running external programs as shell commands.
+
+
+    # Starting FOCAL,1969
+
+    I've taken the time to go into all of that detail because it explains why none of the following commands start the `FOCAL.BN` binary we ship when you build the OS/8 disk packs with FOCAL,1969 enabled:
+
+        .FOCAL
+        .R FOCAL
+        .RUN FOCAL
+
+    What you actually want is to start the OS/8 absolute binary loader, which is what handles `*.BN` files such as `FOCAL.BN`:
+
+        .R ABSLDR
+        *FOCAL/G
+
+    The `/G` option means "go," starting the program immediately after loading it into core memory.
+
+    You'll get another "`*`" prompt after that, but it's from FOCAL, not `ABSLDR`. See page 1-108 in the OS/8 handbook linked above for more detail about `ABSLDR` commands.
+
+    There's a CCL shortcut for this:
+
+        .EXE FOCAL
+
+    The "execute" command in CCL understands several file name extensions (not just `*.BN`) and has hard-coded recipes for loading and running each type of file. That shortcut doesn't have all of the flexibility you get from starting commands via the dedicated loader program, though, and it can sometimes cause trouble. (See "How to Wreck Your Adventure Game" in our [Adventure wiki article](Adventure) for an example.)
+
+
+    # Returning to OS/8 from FOCAL,1969
+
+    Say "L" (`LOGICAL EXIT`) at the FOCAL `*` prompt to get back to OS/8. Unlike U/W FOCAL, FOCAL,1969 does not do this on Ctrl-C.
+
+
+    # Using FOCAL,1969
+
+    There are several freely-available PDF documents for DEC FOCAL which apply to varying degrees to what we ship. We recommend reading them in this order:
+
+    *   [DEC FOCAL booklet](https://www.grc.com/pdp-8/docs/Focal_Booklet.pdf) (PDF, 255 kB) — This is an excellent introductory booklet to get you started with programing in general through the medium of DEC FOCAL.
+
+    *   [FOCAL-8 Programming Manual](https://www.pdp8.net/pdp8cgi/query_docs/view.pl?id=144) (PDF, 2.6 MB) — Despite the name, this is the best documentation on the version of FOCAL we ship with the PiDP-8/I project, according to Charles Lasner. It doesn't cover this OS/8 version of FOCAL specifically, but because it is derived from the original 4k paper tape version and the Disk Monitor System versions of FOCAL it does focus on, it's a good guide to the language proper.
+
+    *   [Programming Languages: PDP-8 Family Computers](http://bitsavers.org/pdf/dec/pdp8/handbooks/programmingLanguages_May70.pdf) (PDF, 19.2 MB) — This book covers several different PDP-8 programming language systems, with the FOCAL material being in Chapter 11. It doesn't talk about OS/8 FOCAL,1969 specifically, but rather in a generic fashion about all DEC FOCAL variants.
+
+        This is the second book of a 2-volume set, with "[Introduction to Programming]((https://www.pdp8.net/pdp8cgi/query_docs/view.pl?id=537)" being the first. The linked-to January 1969 edition of that book did cover FOCAL (Chapter 9), but that material was later moved to this second volume (published May 1970) and improved considerably, so we cannot recommend learning FOCAL via "Introduction to Programming." The first volume was [later re-published](https://www.worldcat.org/title/introduction-to-programming-pdp-8-family-of-computers/oclc/2772287) without detailed coverage of the various programming languages, focusing on foundational matters. I don't know of an online source of this second edition of "Introduction to Programming."
+
+
+    # On Naming
+
+    You might be wondering about our use of the name "FOCAL,1969". That's because that's how the software identifies itself on starting up:
+
+        .EXE FOCAL
+        *W
+        C-FOCAL,1969
+
+    Calling it by that name refers to a fairly specific version of the software, which matches what we distribute. It is sometimes also called "FOCAL 69", though that term was not favored by DEC.
+
+    Another name that *was* favored by DEC's marketing department is "FOCAL-8." This is a generic name not referring to any specific version of FOCAL. You can read it as "DEC FOCAL on the PDP-8."
+
+    There were many variants of FOCAL back in the day, some from DEC and some from outsiders. Because the language was never formally standardized, and there never was one dominant version, it can be useful to be specific about which variant you're talking about. Generic terms like "FOCAL", "FOCAL 69", or "FOCAL-8" should be used only when you're not trying to refer to a specific version.
+
+
+
+    # License
+
+    This article is © 2019 by Warren Young and is licensed under the terms of [the SIMH license][sl].
+
+    [hb]:  https://archive.org/details/bitsavers_decpdp8os8_39414792
+    [opt]: https://tangentsoft.com/pidp8i/doc/trunk/README.md#options
+    [sbi]: https://en.wikipedia.org/wiki/Shell_builtin
+    [sl]:   https://tangentsoft.com/pidp8i/doc/trunk/SIMH-LICENSE.md
+    [uwf]: /doc/trunk/doc/uwfocal-manual.md
+    Z db1f1aba24c210ccf1db4a7a1b3a3fcd
+
+This page was generated in about 0.008s by Fossil 2.21 [e31c2c01e1] 2023-01-06 14:03:01

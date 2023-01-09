@@ -1,0 +1,50 @@
+
+FOCAL (acronym for Formulating On-line Calculations in Algebraic Language, 
+or FOrmula CALculator) is an interactive interpreted programming 
+language based on JOHNNIAC Open Shop System (JOSS) and mostly used on 
+Digital Equipment Corporation (DEC) Programmed Data Processor (PDP) 
+series machines.
+
+FOCAL (acronym for Formulating On-line Calculations in Algebraic Language,
+ or FOrmula CALculator) is an interactive interpreted programming language 
+based on JOHNNIAC Open Shop System (JOSS) and mostly used on Digital 
+Equipment Corporation (DEC) Programmed Data Processor (PDP) series 
+machines. FOCAL is very similar to JOSS in the commands it supports 
+and the general syntax of the language. It differs in that many of 
+JOSS' advanced features like ranges and user-defined functions were 
+removed to simplify the parser. Some of the reserved words (keywords) 
+were renamed so that they all start with a unique first letter. 
+This allows users to type in programs using one-character statements, 
+further reducing memory needs. This was an important consideration 
+on the PDP-8, which was often limited to a few kilobytes (KB). 
+Like JOSS, and later BASICs, FOCAL on the PDP-8 was a complete 
+environment that included a line editor, an interpreter, and 
+input/output routines. The package as a whole was named FOCAL-8, 
+which also ran on the PDP-5 and PDP-12. When ported to the PDP-11, 
+the resulting FOCAL-11 relied on the underlying operating system, 
+RT-11, to provide file support and editing. The language definition 
+was updated twice, to FOCAL-69 and a very slightly modified FOCAL-71. 
+A port to the Intel 8080 was also available. FOCAL is notable as the 
+language in which the original versions of the early video games 
+Hamurabi and Lunar Lander were written. Both were later ported to 
+BASIC, where they became much better known. FOCAL was not popular 
+outside the PDP platform and largely disappeared during the move to 
+the VAX-11. It had a strong revival in the Soviet Union where PDP-11 
+clones were used as educational and home computers. (en)
+
+
+Developer: Richard_Merrill_(computer_scientist)
+Influenced: BASIC-Plus
+
+
+Richard Merrill was a Digital Equipment Corporation employee who 
+invented the FOCAL programming language and programmed the first 
+two interpreters for the language in 1968 and 1969, for the PDP-8. 
+He also developed later versions of the interpreter for the PDP-7 
+and PDP-9, later ported it to the PDP-11. Merrill also designed 
+and programmed the EDIT-8 text editor (using paper-tape). Rick Merrill 
+is an alumnus of Episcopal High School, a preparatory school in 
+Alexandria, VA and of M.I.T BS'63 MS'65 and Clark University MBA'85 (en)
+
+
+
